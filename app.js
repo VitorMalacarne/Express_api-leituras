@@ -33,5 +33,9 @@ app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", indexRouter);
 app.use("/leituras", leiturasRouter);
+app.use((err, req, res, next) => {
+  console.error("Erro inesperado:", err);
+  res.status(500).json({ error: "Erro interno do servidor" });
+});
 
 module.exports = app;
