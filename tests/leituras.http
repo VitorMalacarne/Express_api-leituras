@@ -1,4 +1,4 @@
-@URL=http://localhost:3000/leituras
+@URL=http://localhost/api/express/leituras
 
 ### CREATE
 POST {{URL}}

@@ -21,4 +21,4 @@ ENV MONGO_URL=mongodb://mongo:27017/leiturasdb
 EXPOSE 3000
 
 # Comando de inicialização
-CMD ["node", "app.js"]
+CMD ["npm", "start"]
