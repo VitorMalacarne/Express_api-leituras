@@ -5,7 +5,6 @@ pipeline {
         IMAGE_NAME = 'api-express'
         CONTAINER_NAME = 'api_express'
         GIT_REPO = 'https://github.com/VitorMalacarne/Express_api-leituras.git'
-        EMAIL = 'vitorhenriquewm@gmail.com'
     }
 
     stages {
@@ -37,16 +36,4 @@ pipeline {
         }
     }
 
-    post {
-        success {
-            mail to: "${EMAIL}",
-                 subject: "✅ Deploy bem-sucedido: ${IMAGE_NAME}",
-                 body: "O container ${CONTAINER_NAME} foi implantado com sucesso!"
-        }
-        failure {
-            mail to: "${EMAIL}",
-                 subject: "❌ Falha no deploy: ${IMAGE_NAME}",
-                 body: "Houve erro durante o pipeline Jenkins da aplicação ${IMAGE_NAME}."
-        }
-    }
 }
