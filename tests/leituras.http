@@ -6,7 +6,7 @@ Authorization: 123123
 Content-Type: application/json
 
 {
-    "idSensor": "1111112",
+    "idSensor": "1111262",
     "tipoSensor": "temperatura2",
     "leitura": "30 °C"
 }

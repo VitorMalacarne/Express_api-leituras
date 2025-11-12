@@ -3,6 +3,7 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const mongoose = require("mongoose");
+const { connectRabbitMQ } = require("./services/messaging");
 
 require("dotenv").config();
 
@@ -15,6 +16,7 @@ mongoose
   })
   .then(() => {
     console.log("Conectado ao banco com sucesso!");
+    connectRabbitMQ();
   })
   .catch((e) => {
     console.log("Erro ao conectar com o banco. " + e);

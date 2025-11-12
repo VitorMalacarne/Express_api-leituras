@@ -16,6 +16,8 @@ COPY . .
 # Define variáveis de ambiente padrão
 ENV PORT=3000
 ENV MONGO_URL=mongodb://mongo:27017/leiturasdb
+ENV RABBITMQ_URL=amqp://rabbitmq
+
 
 # Expõe a porta da aplicação
 EXPOSE 3000

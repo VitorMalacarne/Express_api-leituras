@@ -2,6 +2,8 @@ var express = require("express");
 const Leitura = require("../models/Leitura");
 const { default: mongoose } = require("mongoose");
 const isAutenticated = require("../middlewares/isAutenticated");
+const { sendMessage } = require("../services/messaging");
+
 var router = express.Router();
 
 router.get("/", isAutenticated, async function (req, res, next) {
@@ -28,12 +30,33 @@ router.get("/:id", isAutenticated, async (req, res) => {
 
 router.post("/", async (req, res) => {
   const json = req.body;
-
   const leitura = new Leitura(json);
-
   const error = leitura.validateSync();
 
-  return error ? res.status(400).json(error) : res.json(await leitura.save());
+  if (error) {
+    return res.status(400).json(error);
+  }
+
+  const novaLeitura = await leitura.save();
+
+  const valor = parseFloat(novaLeitura.leitura);
+
+  if (
+    (novaLeitura.tipoSensor === "temperatura" && valor > 30) ||
+    (novaLeitura.tipoSensor === "umidade" && valor < 40)
+  ) {
+    const alerta = {
+      sensor: novaLeitura.idSensor,
+      tipo: novaLeitura.tipoSensor,
+      valor: valor,
+      mensagem: "⚠️ Alerta: valor fora do limite seguro",
+      data: new Date().toISOString(),
+    };
+
+    await sendMessage(alerta);
+  }
+
+  return res.json(novaLeitura);
 });
 
 router.put("/:id", isAutenticated, async (req, res) => {
