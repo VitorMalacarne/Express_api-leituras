@@ -2,7 +2,6 @@ var express = require("express");
 const Leitura = require("../models/Leitura");
 const { default: mongoose } = require("mongoose");
 const isAutenticated = require("../middlewares/isAutenticated");
-const { sendMessage } = require("../services/messaging");
 
 var router = express.Router();
 
@@ -53,7 +52,7 @@ router.post("/", async (req, res) => {
       data: new Date().toISOString(),
     };
 
-    await sendMessage(alerta);
+    console.warn("Alerta gerado:", alerta);
   }
 
   return res.json(novaLeitura);

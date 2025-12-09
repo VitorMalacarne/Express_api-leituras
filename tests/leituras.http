@@ -1,14 +1,14 @@
-@URL=http://192.168.30.64/api/express/leituras
-
+#@URL=http://192.168.30.64/api/express/leituras
+@URL=http://localhost:3000/leituras
 ### CREATE
 POST {{URL}}
 Authorization: 123123
 Content-Type: application/json
 
 {
-    "idSensor": "1111262",
-    "tipoSensor": "temperatura2",
-    "leitura": "30 °C"
+    "idSensor": "s2",
+    "tipoSensor": "temperatura",
+    "leitura": "35"
 }
 
 ### GET ALL
